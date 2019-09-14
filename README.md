@@ -1,2 +1,4 @@
 # hello-world
-holds my worked-on beginner codes
+Holds my worked-on beginner codes
+
+Because the guide says to do this.
