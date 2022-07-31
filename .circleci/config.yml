@@ -12,7 +12,7 @@ jobs:
     steps:
     - run: echo "Hello world is really getting boring shaa..." > output.txt
     - persist_to_workspace:
-        root: tmp
+        root: ./
         paths:
         - output.txt
 
@@ -20,7 +20,7 @@ jobs:
     executor: my-executor
     steps:
     - attach_workspace:
-        at: tmp
+        at: ./
     - run: cat output.txt -e
 
 workflows:
