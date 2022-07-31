@@ -31,4 +31,6 @@ workflows:
     - say-my-name:
         requires:
           - say-hello
-    - print-env
+    - print-env:
+        requires:
+          - "say-hello"
