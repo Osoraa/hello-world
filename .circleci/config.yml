@@ -1,36 +1,30 @@
 version: 2.1
 
-jobs:
-  say-hello:
+executors:
+  my-executor:
     docker:
       - image: cimg/base:stable
-    steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+    working_directory: /tmp
 
-  say-my-name:
-    docker:
-    - image: cimg/base:stable
+jobs:
+  save_hello_world_output:
+    executor: my-executor
     steps:
-    - run: "echo My name is Osoraa Nwankwo!!!"
+    - run: echo "Hello world is really getting boring shaa..." > output.txt
+    - persist_to_workspace:
+        root: .
+        paths:
+        - output.txt
 
-  print-env:
-    docker:
-    - image: cimg/base:stable
+  print_output_file:
+    executor: my-executor
     steps:
-    - run:
-        name: "Osoraa"
-        command: "echo $ME"
+    - attach_workspace:
+        at: tmp
+    - run: cat output.txt -e
 
 workflows:
-  say-hello-workflow:
+  this-workflow:
     jobs:
-    - say-hello
-    - say-my-name:
-        requires:
-          - say-hello
-    - print-env:
-        requires:
-          - "say-my-name"
+    - save_hello_world_output
+    - print_output_file
