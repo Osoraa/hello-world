@@ -12,7 +12,7 @@ commands:
     parameters:
       first:
         type: string
-        default: "Some nigga"
+        default: "Some nigga said to do this"
 
       second:
         type: integer
@@ -27,7 +27,7 @@ jobs:
     executor: my-executor
     steps:
     - say_hello_command
-    # - run: echo "Hello world is really getting boring shaa..." > output.txt
+    - run: echo "Hello world is really getting boring shaa..." > output.txt
     - persist_to_workspace:
         root: ./
         paths:
