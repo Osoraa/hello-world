@@ -13,19 +13,23 @@ commands:
       first:
         type: string
         default: "Some nigga said to do this"
-
       second:
         type: integer
         default: 200000
-
     steps:
     - run: echo << parameters.second >>
     - run: echo << parameters.first >>
+
+  print_pipeline_id:
+    description: Prints the pipeline id to stdout
+    steps:
+    - run: echo $CIRCLE_WORKFLOW_ID
 
 jobs:
   save_hello_world_output:
     executor: my-executor
     steps:
+    - print_pipeline_id
     - say_hello_command
     - run: echo "Hello world is really getting boring shaa..." > output.txt
     - persist_to_workspace:
