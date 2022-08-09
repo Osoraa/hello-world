@@ -6,11 +6,28 @@ executors:
       - image: cimg/base:stable
     working_directory: /tmp
 
+commands:
+  say_hello_command:
+    description: A command that say's hello
+    parameters:
+      first:
+        type: string
+        default: "Some nigga"
+
+      second:
+        type: integer
+        default: 200000
+
+    steps:
+    - run: echo << parameters.second >>
+    - run: echo << parameters.first >>
+
 jobs:
   save_hello_world_output:
     executor: my-executor
     steps:
-    - run: echo "Hello world is really getting boring shaa..." > output.txt
+    - say_hello_command
+    # - run: echo "Hello world is really getting boring shaa..." > output.txt
     - persist_to_workspace:
         root: ./
         paths:
@@ -22,6 +39,7 @@ jobs:
     - attach_workspace:
         at: ./
     - run: cat output.txt -e
+
 
 workflows:
   this-workflow:
